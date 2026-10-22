@@ -20,6 +20,8 @@ data = load_data()
 # ── Table 1 Analysis ─────────────────────────────────────────────────────────
 t1 = data["table1"].copy()
 t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
+x = t1["Node Number"].values
+y = t1["Voltage (V)"].values
 
 
 # ── Table 2 Analysis ─────────────────────────────────────────────────────────
