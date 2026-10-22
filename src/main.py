@@ -54,7 +54,7 @@ def analyze_steady_state(df, img_path, title="Steady-State Transmembrane Potenti
     ax.legend()
     ax.grid(True, which="both")
     plt.tight_layout()
-    fig.savefig(img_path, dpi=300)
+    fig.savefig(img_path, dpi=300, bbox_inches="tight")
     plt.close()
 
     return {"slope": slope, "Lc": Lc, "Ri": Ri, "Rm": Rm}
