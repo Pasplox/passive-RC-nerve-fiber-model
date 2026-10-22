@@ -47,7 +47,7 @@ def analyze_steady_state(df, img_path, title="Steady-State Transmembrane Potenti
     # step 4: create semi-log plot, annotate, and save
     fig, ax = plt.subplots()
     ax.semilogy(x, y, 'o', label="data")
-    ax.semilogy(x, y_fit, '-', label="linear fit")
+    ax.semilogy(x, y_fit, '-', label=f"fit: $\\ln(V) = {intercept:.3f} + {slope:.4f}x$")
     ax.set_xlabel("Node Number")
     ax.set_ylabel("Voltage (V)")
     ax.set_title(title)
