@@ -30,7 +30,9 @@ t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
 x = t1["Node Number"].values
 y = t1["Voltage (V)"].values
 
-# step 3: create semi-log plot, annotate, and save
+# step 3: linear regression on log(y) vs x to extract decay constant
+
+# step 4: create semi-log plot, annotate, and save
 fig, ax = plt.subplots()
 ax.semilogy(x, y, 'o')
 ax.set_xlabel("Node Number")
