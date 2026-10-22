@@ -16,3 +16,11 @@ data = load_data()
 # for name, df in data.items():
 #     print(f"\n=== {name} ({df.shape[0]} rows x {df.shape[1]} cols) ===")
 #     print(df.to_string(index=False))
+
+# ── Table 1 Analysis ─────────────────────────────────────────────────────────
+
+
+# ── Table 2 Analysis ─────────────────────────────────────────────────────────
+
+
+# ── Table 3 Analysis ─────────────────────────────────────────────────────────
