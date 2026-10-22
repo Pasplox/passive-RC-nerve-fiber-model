@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data"
@@ -28,6 +29,8 @@ x = t1["Node Number"].values
 y = t1["Voltage (V)"].values
 
 # step 3: create semi-log plot (linear x, log y)
+fig, ax = plt.subplots()
+ax.semilogy(x, y, 'o-')
 
 # step 4: annotate axes, title, and grid
 
