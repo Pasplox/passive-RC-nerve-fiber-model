@@ -23,31 +23,39 @@ data = load_data()
 
 # ── Table 1 Analysis ─────────────────────────────────────────────────────────
 
-# step 1: remap "Vin" to node 0 and cast Node Number to int
-t1 = data["table1"].copy()
-t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
+def analyze_steady_state(df, img_path):
+    t1 = df.copy()
+    t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
 
-# step 2: extract node numbers and voltages as arrays
-x = t1["Node Number"].values
-y = t1["Voltage (V)"].values
+    x = t1["Node Number"].values
+    y = t1["Voltage (V)"].values
 
-# step 3: linear regression on log(y) vs x to extract decay constant
-slope, intercept = np.polyfit(x, np.log(y), 1)
-y_fit = np.exp(intercept + slope * x)
-print(f"Table 1 linear regression slope: {slope:.4f}")
+    slope, intercept = np.polyfit(x, np.log(y), 1)
+    y_fit = np.exp(intercept + slope * x)
 
-# step 4: create semi-log plot, annotate, and save
-fig, ax = plt.subplots()
-ax.semilogy(x, y, 'o', label="data")
-ax.semilogy(x, y_fit, '-', label="linear fit")
-ax.set_xlabel("Node Number")
-ax.set_ylabel("Voltage (V)")
-ax.set_title("Steady-State Transmembrane Potential vs Node Number")
-ax.legend()
-ax.grid(True, which="both")
-plt.tight_layout()
-fig.savefig(IMG_DIR / "table_1_analysis.png", dpi=300)
-plt.close()
+    Lc = -1 / slope
+    Rin = np.exp(intercept)  # voltage at node 0 from fit; actual Rin needs current
+    Ri = Rin / Lc
+    Rm = Rin * Lc
+
+    print(f"Table 1 slope: {slope:.4f}, Lc: {Lc:.4f}")
+    print(f"  Derived Ri: {Ri/1e3:.2f} kΩ, Rm: {Rm/1e3:.2f} kΩ")
+
+    fig, ax = plt.subplots()
+    ax.semilogy(x, y, 'o', label="data")
+    ax.semilogy(x, y_fit, '-', label="linear fit")
+    ax.set_xlabel("Node Number")
+    ax.set_ylabel("Voltage (V)")
+    ax.set_title("Steady-State Transmembrane Potential vs Node Number")
+    ax.legend()
+    ax.grid(True, which="both")
+    plt.tight_layout()
+    fig.savefig(img_path, dpi=300)
+    plt.close()
+
+    return {"slope": slope, "Lc": Lc, "Ri": Ri, "Rm": Rm}
+
+results_t1 = analyze_steady_state(data["table1"], IMG_DIR / "table_1_analysis.png")
 
 
 # ── Table 2 Analysis ─────────────────────────────────────────────────────────
