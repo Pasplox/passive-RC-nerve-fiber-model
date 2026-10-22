@@ -1,0 +1,9 @@
+Circuit / Node,Maximum Delta V (V),0.63 Maximum Delta V (V),Time (us)
+Single Capacitor Circuit,,,
+Single Capacitor,10.8,6.804,1808
+Multiple RC Cable,,,
+Input Node,3.62,2.2806,1113
+Node 4,1.28,0.8064,1564
+Node 8,0.350,0.2205,1948
+Node 12,0.0696,0.04385,2168
+Node 16,0.0236,0.01487,2540
