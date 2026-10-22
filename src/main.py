@@ -24,12 +24,15 @@ data = load_data()
 # ── Table 1 Analysis ─────────────────────────────────────────────────────────
 
 def analyze_steady_state(df, img_path):
+    # step 1: remap "Vin" to node 0 and cast Node Number to int
     t1 = df.copy()
     t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
 
+    # step 2: extract node numbers and voltages as arrays
     x = t1["Node Number"].values
     y = t1["Voltage (V)"].values
 
+    # step 3: linear regression on log(y) vs x to extract decay constant
     slope, intercept = np.polyfit(x, np.log(y), 1)
     y_fit = np.exp(intercept + slope * x)
 
@@ -41,6 +44,7 @@ def analyze_steady_state(df, img_path):
     print(f"Table 1 slope: {slope:.4f}, Lc: {Lc:.4f}")
     print(f"  Derived Ri: {Ri/1e3:.2f} kΩ, Rm: {Rm/1e3:.2f} kΩ")
 
+    # step 4: create semi-log plot, annotate, and save
     fig, ax = plt.subplots()
     ax.semilogy(x, y, 'o', label="data")
     ax.semilogy(x, y_fit, '-', label="linear fit")
