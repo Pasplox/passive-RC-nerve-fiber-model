@@ -9,3 +9,4 @@ def load_data():
     table2 = pd.read_csv(DATA_DIR / "table2_square_wave_transmembrane_potentials.csv")
     table3 = pd.read_csv(DATA_DIR / "table3_transient_response_measurements.csv")
     table3 = table3.dropna(subset=["Maximum Delta V (V)"])
+    return {"table1": table1, "table2": table2, "table3": table3}
