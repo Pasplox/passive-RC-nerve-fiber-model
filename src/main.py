@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 DATA_DIR = Path(__file__).parent.parent / "data"
+IMG_DIR = Path(__file__).parent.parent / "images"
+IMG_DIR.mkdir(exist_ok=True)
 
 def load_data():
     table1 = pd.read_csv(DATA_DIR / "table1_steady_state_transmembrane_potentials.csv")
@@ -28,13 +30,16 @@ t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
 x = t1["Node Number"].values
 y = t1["Voltage (V)"].values
 
-# step 3: create semi-log plot (linear x, log y)
+# step 3: create semi-log plot, annotate, and save
 fig, ax = plt.subplots()
-ax.semilogy(x, y, 'o-')
-
-# step 4: annotate axes, title, and grid
-
-# step 5: save figure and/or show
+ax.semilogy(x, y, 'o')
+ax.set_xlabel("Node Number")
+ax.set_ylabel("Voltage (V)")
+ax.set_title("Steady-State Transmembrane Potential vs Node Number")
+ax.grid(True, which="both")
+plt.tight_layout()
+fig.savefig(IMG_DIR / "table_1_analysis.png", dpi=300)
+plt.close()
 
 
 # ── Table 2 Analysis ─────────────────────────────────────────────────────────
