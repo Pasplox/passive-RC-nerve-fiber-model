@@ -37,10 +37,12 @@ y_fit = np.exp(intercept + slope * x)
 
 # step 4: create semi-log plot, annotate, and save
 fig, ax = plt.subplots()
-ax.semilogy(x, y, 'o')
+ax.semilogy(x, y, 'o', label="data")
+ax.semilogy(x, y_fit, '-', label="linear fit")
 ax.set_xlabel("Node Number")
 ax.set_ylabel("Voltage (V)")
 ax.set_title("Steady-State Transmembrane Potential vs Node Number")
+ax.legend()
 ax.grid(True, which="both")
 plt.tight_layout()
 fig.savefig(IMG_DIR / "table_1_analysis.png", dpi=300)
