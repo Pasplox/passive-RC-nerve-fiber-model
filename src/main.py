@@ -18,6 +18,10 @@ data = load_data()
 #     print(df.to_string(index=False))
 
 # ── Table 1 Analysis ─────────────────────────────────────────────────────────
+t1 = data["table1"].copy()
+# get rid of "Vin" row
+t1 = t1[t1["Node Number"] != "Vin"].copy()
+t1["Node Number"] = t1["Node Number"].astype(int)
 
 
 # ── Table 2 Analysis ─────────────────────────────────────────────────────────
