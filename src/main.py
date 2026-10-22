@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
@@ -31,6 +32,7 @@ x = t1["Node Number"].values
 y = t1["Voltage (V)"].values
 
 # step 3: linear regression on log(y) vs x to extract decay constant
+slope, intercept = np.polyfit(x, np.log(y), 1)
 
 # step 4: create semi-log plot, annotate, and save
 fig, ax = plt.subplots()
