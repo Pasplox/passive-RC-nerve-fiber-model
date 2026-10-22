@@ -19,9 +19,7 @@ data = load_data()
 
 # ── Table 1 Analysis ─────────────────────────────────────────────────────────
 t1 = data["table1"].copy()
-# get rid of "Vin" row
-t1 = t1[t1["Node Number"] != "Vin"].copy()
-t1["Node Number"] = t1["Node Number"].astype(int)
+t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
 
 
 # ── Table 2 Analysis ─────────────────────────────────────────────────────────
