@@ -23,7 +23,7 @@ data = load_data()
 
 # ── Table 1 Analysis ─────────────────────────────────────────────────────────
 
-def analyze_steady_state(df, img_path):
+def analyze_steady_state(df, img_path, title="Steady-State Transmembrane Potential vs Node Number"):
     # step 1: remap "Vin" to node 0 and cast Node Number to int
     t1 = df.copy()
     t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
@@ -50,7 +50,7 @@ def analyze_steady_state(df, img_path):
     ax.semilogy(x, y_fit, '-', label="linear fit")
     ax.set_xlabel("Node Number")
     ax.set_ylabel("Voltage (V)")
-    ax.set_title("Steady-State Transmembrane Potential vs Node Number")
+    ax.set_title(title)
     ax.legend()
     ax.grid(True, which="both")
     plt.tight_layout()
@@ -63,6 +63,12 @@ results_t1 = analyze_steady_state(data["table1"], IMG_DIR / "table_1_analysis.pn
 
 
 # ── Table 2 Analysis ─────────────────────────────────────────────────────────
+
+results_t2 = analyze_steady_state(
+    data["table2"],
+    IMG_DIR / "table_2_analysis.png",
+    title="Square Wave Steady-State Transmembrane Potential vs Node Number",
+)
 
 
 # ── Table 3 Analysis ─────────────────────────────────────────────────────────
