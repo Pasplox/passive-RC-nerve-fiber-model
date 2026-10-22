@@ -18,10 +18,20 @@ data = load_data()
 #     print(df.to_string(index=False))
 
 # ── Table 1 Analysis ─────────────────────────────────────────────────────────
+
+# step 1: remap "Vin" to node 0 and cast Node Number to int
 t1 = data["table1"].copy()
 t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
+
+# step 2: extract node numbers and voltages as arrays
 x = t1["Node Number"].values
 y = t1["Voltage (V)"].values
+
+# step 3: create semi-log plot (linear x, log y)
+
+# step 4: annotate axes, title, and grid
+
+# step 5: save figure and/or show
 
 
 # ── Table 2 Analysis ─────────────────────────────────────────────────────────
