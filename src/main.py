@@ -23,7 +23,7 @@ data = load_data()
 
 # ── Table 1 Analysis ─────────────────────────────────────────────────────────
 
-def analyze_steady_state(df, img_path):
+def analyze_steady_state(df, img_path, title="Steady-State Transmembrane Potential vs Node Number"):
     # step 1: remap "Vin" to node 0 and cast Node Number to int
     t1 = df.copy()
     t1["Node Number"] = t1["Node Number"].replace("Vin", "0").astype(int)
@@ -47,14 +47,14 @@ def analyze_steady_state(df, img_path):
     # step 4: create semi-log plot, annotate, and save
     fig, ax = plt.subplots()
     ax.semilogy(x, y, 'o', label="data")
-    ax.semilogy(x, y_fit, '-', label="linear fit")
+    ax.semilogy(x, y_fit, '-', label=f"fit: $\\ln(V) = {intercept:.3f} + {slope:.4f}x$")
     ax.set_xlabel("Node Number")
     ax.set_ylabel("Voltage (V)")
-    ax.set_title("Steady-State Transmembrane Potential vs Node Number")
+    ax.set_title(title)
     ax.legend()
     ax.grid(True, which="both")
     plt.tight_layout()
-    fig.savefig(img_path, dpi=300)
+    fig.savefig(img_path, dpi=300, bbox_inches="tight")
     plt.close()
 
     return {"slope": slope, "Lc": Lc, "Ri": Ri, "Rm": Rm}
@@ -64,5 +64,8 @@ results_t1 = analyze_steady_state(data["table1"], IMG_DIR / "table_1_analysis.pn
 
 # ── Table 2 Analysis ─────────────────────────────────────────────────────────
 
-
-# ── Table 3 Analysis ─────────────────────────────────────────────────────────
+results_t2 = analyze_steady_state(
+    data["table2"],
+    IMG_DIR / "table_2_analysis.png",
+    title="Square Wave Steady-State Transmembrane Potential vs Node Number",
+)
