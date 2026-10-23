@@ -69,6 +69,3 @@ results_t2 = analyze_steady_state(
     IMG_DIR / "table_2_analysis.png",
     title="Square Wave Steady-State Transmembrane Potential vs Node Number",
 )
-
-
-# ── Table 3 Analysis ─────────────────────────────────────────────────────────
